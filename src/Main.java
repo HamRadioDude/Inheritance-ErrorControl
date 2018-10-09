@@ -28,23 +28,24 @@ public class Main {
 
             try {
                 mainSelect = input.nextInt();
-            } catch (java.util.InputMismatchException e){
+            } catch (java.util.InputMismatchException e) {
                 input.nextInt();
             }
-        }while (mainSelect != 1 && mainSelect != 2 && mainSelect != 3) ;
-            {
-                input.nextLine();
-            }
-            if (mainSelect == 1) {
-                residential();
-
-            }else if (mainSelect == 2){
-                commercial();
-        }   else {
-                System.exit(0);
-            }
-
+        } while (mainSelect != 1 && mainSelect != 2 && mainSelect != 3);
+        {
+            input.nextLine();
         }
+        if (mainSelect == 1) {
+            residential();
+
+        } else if (mainSelect == 2) {
+            commercial();
+        } else {
+            System.exit(0);
+        }
+
+    }
+
 
 
 
@@ -64,7 +65,11 @@ public class Main {
             Scanner input = new Scanner(System.in);  // used for user input
             boolean senDiscount;
             String chkDiscount;
-            boolean custnamck;
+            boolean custnamck = true;
+            String customerName ="";
+            String customerAddress = "";
+            long customerPhone = 0;
+            double squareFootage = 0;
 
             // Collect input to be used in other Classes.  Customer Last Name, Customer First Name, customerAddress, Phone, Senior, property size
 //            System.out.println("Enter The Customer's First Name: ");
@@ -72,7 +77,7 @@ public class Main {
             do {
                 System.out.println("Enter The Customer's Name: ");
                 try {
-                    String customerName = input.nextLine();
+                    customerName = input.nextLine();
                     if (customerName.length() < 20) { // Would have done 50, but for testing purposes, it's easier to make it 0
                         custnamck = true;
                     } else {
@@ -86,7 +91,7 @@ public class Main {
             do {
                 System.out.println("Enter The Customer's Address: ");
                 try {
-                    String customerAddress = input.nextLine();
+                    customerAddress = input.nextLine();
                     if (customerAddress.length() < 20) {
                         custnamck = true;
                     } else {
@@ -101,7 +106,7 @@ public class Main {
             do {
                 System.out.println("Enter the Customer Phone Number: ");
                 try {
-                    long customerPhone = input.nextLong();
+                    customerPhone = input.nextLong();
                     String stringCustPH = Long.toString(customerPhone);
 //                if (customerPhone.length())  doesnt work on long. also tried customerPhone.length(10), thinking that would define the max length
                     if (stringCustPH.length() == 10) {
@@ -112,12 +117,29 @@ public class Main {
                     }
                 } catch (java.util.InputMismatchException e) {
                     System.out.println("Error in Phone Number, - 10 numeric digits were required");
+                }
+            }while (!custnamck);
+                do {
+                    System.out.println("What is the square footage of the property? ");
+                    try {
+                        squareFootage = input.nextDouble();
+                        if (squareFootage > -1) {
+                            custnamck = true;
+                        } else {
+                            custnamck = false;
+                            System.out.println("Invalid Square Footage");
+                        }
+                    } catch (java.util.InputMismatchException e) {
+                        System.out.println("Error in square Footage.  number was less than 0");
+                    }
                 }while (!custnamck);
+
+
 
                         // The discount doesn't work 10/17/2018.  Just skips over this option.  NEED TO EVALUATE @1953 HOURS SK
                         // SK100718 @ 2204 - Corrected by making input.next as opposed to input.nextLine();
                         System.out.println("Does the Residential Client qualify for a Senior discount (55 years or older) ? Y or y if Yes.  Anything else will default to No discount ");
-                        chkDiscount
+                        chkDiscount = input.next();
                         if (chkDiscount.equalsIgnoreCase("y")) {
                             senDiscount = true;
                         } else {
@@ -133,7 +155,7 @@ public class Main {
 
                     //
                 }
-            }
+
 
 
 
@@ -146,28 +168,84 @@ public class Main {
             //A multi-property field
             //A method that calculates weekly charges, if they have multiple properties provide a 10% discount. The
             // method should display all information about the customer, the property, and the weekly charge.
-
             Scanner input = new Scanner(System.in);  // used for user input
-            String chkDiscount = input.nextLine();
-            Boolean senDiscount;
+            boolean senDiscount;
+            String chkDiscount;
+            boolean custnamck = true;
+            String customerName ="";
+            String customerAddress = "";
+            long customerPhone = 0;
+            double squareFootage = 0;
 
-            System.out.println("Enter The Business Name: ");
-            String customerName = input.nextLine();
+            do {
+                System.out.println("Enter The Business Name: ");
+                try {
+                    customerName = input.nextLine();
+                    if (customerName.length() < 20) { // Would have done 50, but for testing purposes, it's easier to make it 0
+                        custnamck = true;
+                    } else {
+                        System.out.println("The last name was not accepted due to an overly large amount of letters, please limit it to less than 20");
+                        custnamck = false;
+                    }
+                } catch (java.util.InputMismatchException a) {
+                    System.out.println("Name Error, name must be less than 20 characters"); // again, 50 would have  probably been the limit
+                }
+            } while (!custnamck);
+            do {
+                System.out.println("Enter The Business Address: ");
+                try {
+                    customerAddress = input.nextLine();
+                    if (customerAddress.length() < 20) {
+                        custnamck = true;
+                    } else {
+                        custnamck = false;
+                        System.out.println("Address Cannot be great than 20 digits, try again");
+                    }
+                } catch (java.util.InputMismatchException e) {
+                    System.out.println("ADDRESS ERROR - Must be less than 20 digits");
+                }
+            } while (!custnamck);
 
-            System.out.println("Enter The Business Address: ");
-            String customerAddress = input.nextLine();
+            do {
+                System.out.println("Enter the Business Phone Number: ");
+                try {
+                    customerPhone = input.nextLong();
+                    String stringCustPH = Long.toString(customerPhone);
+//                if (customerPhone.length())  doesnt work on long. also tried customerPhone.length(10), thinking that would define the max length
+                    if (stringCustPH.length() == 10) {
+                        custnamck = true;
+                    } else {
+                        custnamck = false;
+                        System.out.println("Invalid phone number.  Must be 10 digits and NUMBERS ONLY");
+                    }
+                } catch (java.util.InputMismatchException e) {
+                    System.out.println("Error in Phone Number, - 10 numeric digits were required");
+                }
+            }while (!custnamck);
+            do {
+                System.out.println("What is the square footage of the property? ");
+                try {
+                    squareFootage = input.nextDouble();
+                    if (squareFootage > -1) {
+                        custnamck = true;
+                    } else {
+                        custnamck = false;
+                        System.out.println("Invalid Square Footage");
+                    }
+                } catch (java.util.InputMismatchException e) {
+                    System.out.println("Error in square Footage.  number was less than 0");
+                }
+            }while (!custnamck);
 
-            System.out.println("Enter the Business Phone Number: ");
-            long customerPhone = input.nextLong();
 
-            System.out.println("What is the square footage of the property? ");
-            Double squareFootage = input.nextDouble();
 
-            System.out.println("Does the client have multiple properties) ? Y or y if Yes.  Anything else will default to No discount ");
+            // The discount doesn't work 10/17/2018.  Just skips over this option.  NEED TO EVALUATE @1953 HOURS SK
+            // SK100718 @ 2204 - Corrected by making input.next as opposed to input.nextLine();
+            System.out.println("Is there more more than one Business property using Slick Rick's Lawn Services?  Y or y if Yes.  Anything else will default to No discount ");
             chkDiscount = input.next();
             if (chkDiscount.equalsIgnoreCase("y")) {
                 senDiscount = true;
-            }else {
+            } else {
                 senDiscount = false;
             }
 

@@ -30,7 +30,7 @@ public class Customer {
 
         System.out.println("------------------------Customer Information------------------------------------");
         System.out.println("--------------------------------------------------------------------------------");
-        System.out.println("--------------------CLIENT INFORMATION-------------------------");
+        System.out.println("-------------------------CLIENT INFORMATION-------------------------------------");
 //        System.out.println(getCustomerFName());
         System.out.println(getCustomerName());
         System.out.println(getCustomerAddress());
